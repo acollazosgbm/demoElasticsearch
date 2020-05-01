@@ -7,11 +7,12 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Document(indexName = "Hunt-R", type = "thing")
+@Document(indexName = "hunt-r", type = "thing")
 public class Thing {
 	
 	@Id
 	private String id;
+	
 	private String thingId;
 	
 	
@@ -20,21 +21,18 @@ public class Thing {
 	private String thingName;	
 	private String status;
 	
-	private Long statusTimeMillis;
+	private Integer statusTimeMillis;
 	
-
-	private Long temperature;
-	private Long pressure;
-	private Long radioSignalStrength;
-	private Long gForceX;
-	private Long gForceY;
-	private Long gForceZ;
+	private Float temperature;
+	private Float pressure;
+	private Float radioSignalStrength;
+	private Float gForceX;
+	private Float gForceY;
+	private Float gForceZ;
 	private Integer batteryCharge;
-	private Long batteryVoltage;
-	private Integer Voltage;
-	private Long frequency;
-	
-	
+	private Float batteryVoltage;
+	private Integer voltage;
+	private Integer frequency;
 
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private Date recoverDate;
@@ -93,59 +91,59 @@ public class Thing {
 		this.status = status;
 	}
 
-	public Long getStatusTimeMillis() {
+	public Integer getStatusTimeMillis() {
 		return statusTimeMillis;
 	}
 
-	public void setStatusTimeMillis(Long statusTimeMillis) {
+	public void setStatusTimeMillis(Integer statusTimeMillis) {
 		this.statusTimeMillis = statusTimeMillis;
 	}
 
-	public Long getTemperature() {
+	public Float getTemperature() {
 		return temperature;
 	}
 
-	public void setTemperature(Long temperature) {
+	public void setTemperature(Float temperature) {
 		this.temperature = temperature;
 	}
 
-	public Long getPressure() {
+	public Float getPressure() {
 		return pressure;
 	}
 
-	public void setPressure(Long pressure) {
+	public void setPressure(Float pressure) {
 		this.pressure = pressure;
 	}
 
-	public Long getRadioSignalStrength() {
+	public Float getRadioSignalStrength() {
 		return radioSignalStrength;
 	}
 
-	public void setRadioSignalStrength(Long radioSignalStrength) {
+	public void setRadioSignalStrength(Float radioSignalStrength) {
 		this.radioSignalStrength = radioSignalStrength;
 	}
 
-	public Long getgForceX() {
+	public Float getgForceX() {
 		return gForceX;
 	}
 
-	public void setgForceX(Long gForceX) {
+	public void setgForceX(Float gForceX) {
 		this.gForceX = gForceX;
 	}
 
-	public Long getgForceY() {
+	public Float getgForceY() {
 		return gForceY;
 	}
 
-	public void setgForceY(Long gForceY) {
+	public void setgForceY(Float gForceY) {
 		this.gForceY = gForceY;
 	}
 
-	public Long getgForceZ() {
+	public Float getgForceZ() {
 		return gForceZ;
 	}
 
-	public void setgForceZ(Long gForceZ) {
+	public void setgForceZ(Float gForceZ) {
 		this.gForceZ = gForceZ;
 	}
 
@@ -157,27 +155,27 @@ public class Thing {
 		this.batteryCharge = batteryCharge;
 	}
 
-	public Long getBatteryVoltage() {
+	public Float getBatteryVoltage() {
 		return batteryVoltage;
 	}
 
-	public void setBatteryVoltage(Long batteryVoltage) {
+	public void setBatteryVoltage(Float batteryVoltage) {
 		this.batteryVoltage = batteryVoltage;
 	}
 
 	public Integer getVoltage() {
-		return Voltage;
+		return voltage;
 	}
 
 	public void setVoltage(Integer voltage) {
-		Voltage = voltage;
+		this.voltage = voltage;
 	}
 
-	public Long getFrequency() {
+	public Integer getFrequency() {
 		return frequency;
 	}
 
-	public void setFrequency(Long frequency) {
+	public void setFrequency(Integer frequency) {
 		this.frequency = frequency;
 	}
 
@@ -204,5 +202,8 @@ public class Thing {
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
+	
+	
+	
 
 }

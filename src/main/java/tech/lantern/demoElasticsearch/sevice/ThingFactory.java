@@ -2,6 +2,8 @@ package tech.lantern.demoElasticsearch.sevice;
 
 import java.util.List;
 
+import tech.lantern.demoElasticsearch.model.Thing;
+
 public interface ThingFactory {
 
 	List<String> LOCATIONS = List.of("9.9454601,-84.1972393", "3.3762037,-76.5279861", "9.9508149,-84.082032",
@@ -14,10 +16,10 @@ public interface ThingFactory {
 			"MYSWEETY CNC 3018-PRO", "Mill One V3 de Sienci", "Maker Made CNC Maslow", "NANO PMF80 de Next3D",
 			"X-Carve de Inventables", "Ooznest WorkBee", "CNC Piranha FX");
 
-	List<String> STATUS = List.of("Normal Operation", "Degraded Operation", "Partial Outage", "Outage");
+	List<String> STATUS = List.of("Running","Running","Running","Running","Running","Running", "No Loaded","No Loaded","Iddle", "Machine Off");
 
-	List<String> SOURCES = List.of("thing", "external", "Gateway");
-	
-	
+	List<String> SOURCES = List.of("thing","thing","thing","thing","thing","thing", "external", "external", "Gateway", "Gateway");
+
+	List<Thing> crateThingsByLocation(String Location);
 
 }
