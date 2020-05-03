@@ -9,19 +9,20 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import tech.lantern.demoElasticsearch.model.Thing;
+import tech.lantern.demoElasticsearch.model.Location;
+import tech.lantern.demoElasticsearch.model.ThingReport;
 
 @Service
-public class ThingFactoryImp implements ThingFactory {
+public class ThingFactoryImp implements ThingFactoryI {
 
 	
 	private Random random = new Random();
 	
 	@Override
-	public List<Thing> crateThingsByLocation(String location){
+	public List<ThingReport> crateThingsByLocation(Location location){
 
-		List<Thing> thingsByLocation = new ArrayList<Thing>();
-		Thing thing;
+		List<ThingReport> thingsByLocation = new ArrayList<ThingReport>();
+		ThingReport thing;
 		int index = 0;
 		for(String thingName:THING_NAMES) {
 			thing = crateThings(location,thingName,index);
@@ -32,9 +33,9 @@ public class ThingFactoryImp implements ThingFactory {
 
 	}
 	
-	private Thing crateThings(String location,String thingName,int index){
+	private ThingReport crateThings(Location location,String thingName,int index){
 		
-		Thing thing = new Thing();
+		ThingReport thing = new ThingReport();
 		
 		//id: TODO validar como está quedando en la BD
 		
@@ -46,12 +47,14 @@ public class ThingFactoryImp implements ThingFactory {
 		 */
 		//location;
 		thing.setLocation(location);
+		
 		//source;
 		thing.setSource(SOURCES.get(index));
 		//thingName;
 		thing.setThingName(thingName);
-		//status;
-		thing.setStatus(STATUS.get(index));
+		
+		//TODO status;
+
 
 		//Integer statusTimeMillis;
 		thing.setStatusTimeMillis(random.nextInt(5));
@@ -84,7 +87,6 @@ public class ThingFactoryImp implements ThingFactory {
 		
 		return thing;
 	}
-	
 	
 	private Float getAxis(){
 		

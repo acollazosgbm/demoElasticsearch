@@ -4,25 +4,25 @@ import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.GeoPointField;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Document(indexName = "hunt-r", type = "thing")
-public class Thing {
+@Document(indexName = "hunt-r", type = "thingResport")
+public class ThingReport {
 	
 	@Id
 	private String id;
-	
 	private String thingId;
+	@GeoPointField
+	private Location location;
 	
-	
-	private String location;
+	private String locationName;
 	private String source;
 	private String thingName;	
+
 	private String status;
-	
 	private Integer statusTimeMillis;
-	
 	private Float temperature;
 	private Float pressure;
 	private Float radioSignalStrength;
@@ -59,11 +59,11 @@ public class Thing {
 		this.thingId = thingId;
 	}
 
-	public String getLocation() {
+	public Location getLocation() {
 		return location;
 	}
 
-	public void setLocation(String location) {
+	public void setLocation(Location location) {
 		this.location = location;
 	}
 
@@ -202,7 +202,16 @@ public class Thing {
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
-	
+
+	public String getLocationName() {
+		return locationName;
+	}
+
+	public void setLocationName(String locationName) {
+		this.locationName = locationName;
+	}
+
+
 	
 	
 
