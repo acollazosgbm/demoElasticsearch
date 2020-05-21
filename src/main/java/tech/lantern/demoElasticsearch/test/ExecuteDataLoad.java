@@ -24,14 +24,20 @@ public class ExecuteDataLoad {
 
 	private static final Logger log = LoggerFactory.getLogger(ExecuteDataLoad.class);
 
-	private static final int periodDuration = 100;
+	private static final int periodDuration = 10;
 	
 	private int amoutReports =0;
+	private long timeIni = System.currentTimeMillis();
 	
 	@EventListener(org.springframework.boot.context.event.ApplicationReadyEvent.class)
 	public void executeLoad() {
 
 		log.info("INICIO");
+		/*
+		 * TODO: asdvadva
+		 * adfbadf
+		 * 
+		 */
 
 		
 		StageFactory stageFactory = new StageFactory();
@@ -46,8 +52,13 @@ public class ExecuteDataLoad {
 		}
 	
 
-		log.info("FIN");
+		log.info("*******************************************");
+		log.info("*****************FIN***********************");
+		log.info("*******************************************");
 		log.info("was save "+amoutReports+" ThingReport");
+		long timeFin = System.currentTimeMillis();
+		long timeTotal = timeFin/timeIni;
+		log.info("en "+(timeTotal/1000)/60+"Minutos");
 		log.info("*******************************************");
 	}
 
@@ -76,7 +87,7 @@ public class ExecuteDataLoad {
 			
 			// Espera un segundo antes de enviar los reportes de otro site
 			try {
-				Thread.sleep(250);
+				Thread.sleep(20);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -88,6 +99,7 @@ public class ExecuteDataLoad {
 		
 		thingElasticsearchRepository.saveAll(thingsReports);
 		log.info("saved " + things.size() + " things of site");
+		amoutReports = amoutReports+things.size();
 	}
 
 }

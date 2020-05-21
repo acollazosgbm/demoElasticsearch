@@ -61,8 +61,8 @@ public class ThingFactory {
 		String source = SOURCES.get(new Random().nextInt(SOURCES.size()));
 		thing.setSource(source);
 		
-		StatusFactory statusFactory = new StatusFactory();
-		List<StatusThing> timeLine = statusFactory.createStatusTimeLine(periodDuration);
+		StatusFactory statusFactory = new StatusFactory(periodDuration);
+		List<StatusThing> timeLine = statusFactory.createStatusTimeLine();
 		thing.setTimeLine(timeLine);
 		
 		ThingReport thingReport =  thingReportFactory.createThingReport(0, timeLine, thing);

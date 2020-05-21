@@ -100,25 +100,25 @@ public class ThingReportFactory {
 		// Integer statusTimeMillis;
 		thingReport.setStatusTimeMillis(random.nextInt(5));
 		// Float temperature;
-		thingReport.setTemperature(getFloatRandom(40, 60));
+		thingReport.setTemperature(getFloatRandom(10));
 		// Float pressure;
-		thingReport.setPressure(getFloatRandom(1000, 10000));
+		thingReport.setPressure(getFloatRandom(1000));
 		// Float radioSignalStrength;
-		thingReport.setRadioSignalStrength(getFloatRandom(0, 60));
+		thingReport.setRadioSignalStrength(getFloatRandom(10));
 		// Integer batteryCharge;
 		thingReport.setBatteryCharge(getIntRandom(0, 100));
 		// Float batteryVoltage;
-		thingReport.setBatteryVoltage(getFloatRandom(60, 220));
+		thingReport.setBatteryVoltage(getFloatRandom(10));
 		// Integer voltage;
 		thingReport.setVoltage(getIntRandom(60, 220));
 		// Long frequency;
 		thingReport.setFrequency(getIntRandom(0, 110));
 		// Float gForceX;
-		thingReport.setgForceX(getFloatRandom(-5, 5));
+		thingReport.setgForceX(getFloatRandom(10));
 		// Float gForceY;
-		thingReport.setgForceY(getFloatRandom(-5, 5));
+		thingReport.setgForceY(getFloatRandom(10));
 		// Float gForceZ;
-		thingReport.setgForceZ(getFloatRandom(-5, 5));
+		thingReport.setgForceZ(getFloatRandom(10));
 
 		Calendar cal = Calendar.getInstance();
 		Date timestamp = cal.getTime();
@@ -137,16 +137,13 @@ public class ThingReportFactory {
 		return thingReport;
 	}
 
-	private Float getFloatRandom(int min, int max) {
-
-		float leftLimit = Float.parseFloat(min + "");
-		float rightLimit = Float.parseFloat(min + "");
+	private Float getFloatRandom(int decimales) {
 
 		DecimalFormat df = new DecimalFormat("0.##");
-		Float generatedFloat = Float
-				.parseFloat(df.format(leftLimit + new Random().nextFloat() * (rightLimit - leftLimit)));
-
-		return generatedFloat;
+		float generado = new Random().nextFloat()*decimales;
+		String formateado = df.format(generado);
+		float resultado = Float.parseFloat(formateado);
+		return resultado;
 
 	}
 

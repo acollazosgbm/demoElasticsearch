@@ -2,20 +2,78 @@ package tech.lantern.demoElasticsearch.test.factories;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import tech.lantern.demoElasticsearch.test.model.StatusThing;
 
 public class StatusFactory {
 
-	public List<StatusThing> createStatusTimeLine(int periodDuration) {
+	
+	
+	private int timeRunning = 0;
+	private int timeNoLoaded = 0;
+	private int timeIddle = 0;
+	private int timeMachineOff = 0;
+	private int timeTotal = 0;
+	
+	List<Integer> numStatuses;
+	
+	
+	
+	public static void main(String[] args) {
+		
+		StatusFactory statusFactory = new StatusFactory(1000);
+		
+		List<StatusThing> statusTimeLine = statusFactory.createStatusTimeLine();
+		
+		System.out.println("-----------INICIO-------------");
+
+		int index =0;
+		for(StatusThing statusThing: statusTimeLine) {
+			
+			System.out.println("index: "+index);	
+			System.out.println("nameStatus: "+statusThing.getName());	
+			System.out.println("timeIni: "+statusThing.getTimeIni());	
+			System.out.println("timeFin: "+statusThing.getTimeFin());	
+			System.out.println("------------------------");
+			index++;
+
+		}
+
+		System.out.println("-----------FIN-------------");
+	
+	}
+	
+	
+	public StatusFactory(int timeTotal) {
+		this.timeTotal = timeTotal;
+		
+		distribuirTiempoTotal();
+	}
+
+	private void distribuirTiempoTotal() {
+
+		timeRunning = Double.valueOf(timeTotal*getPorcParticipacion(80,90)).intValue();
+		timeNoLoaded = Double.valueOf(timeTotal*getPorcParticipacion(5,15)).intValue();
+		timeIddle = Double.valueOf(timeTotal*getPorcParticipacion(5,15)).intValue();
+		timeMachineOff = Double.valueOf(timeTotal*getPorcParticipacion(5,15)).intValue();
+		int tiempoRestante = timeTotal -(timeRunning+timeNoLoaded+timeIddle+timeMachineOff);
+		timeRunning = tiempoRestante+timeRunning;
+
+		
+	}
+
+	public List<StatusThing> createStatusTimeLine() {
 
 		List<StatusThing> statusTimeLine = new ArrayList<StatusThing>();
+		
+		numStatuses = new ArrayList<Integer>();
 
 		StatusThing status;
 
-		for (int index = 0; index <= periodDuration;) {
-			status = createStatus(index,periodDuration);
+		for (int index = 0; index < timeTotal;) {
+
+			status = createStatus(index,timeTotal);
 			statusTimeLine.add(status);
 			index = status.getTimeFin();
 
@@ -28,44 +86,33 @@ public class StatusFactory {
 
 		StatusThing status = null;
 
-		Random random = new Random();
-		int num = random.nextInt(5);
+		int num = radomNoRepetible(4);
 
 		String statusName;
 
 		int timeIni = index;
 		int duracion =0;
 
-
-		Double minDuration = Double.parseDouble(periodDuration+"")*0.3;
-
-		Double maxDuration = Double.parseDouble(periodDuration+"")*0.7;
-
-		Double maxDurationNoRunning = Double.parseDouble(periodDuration+"")*0.1;
-		Double minDurationNoRunning = Double.parseDouble(periodDuration+"")*0.01;
-
-
-		
 		switch (num) {
-		case 1:
+		case 0:
 			statusName = "Running";
-			duracion = random.nextInt(maxDuration.intValue())+minDuration.intValue();
+			duracion = timeRunning;
+			break;
+		case 1:
+			statusName = "No Loaded";
+			duracion = timeNoLoaded;
 			break;
 		case 2:
-			statusName = "No Loaded";
-			duracion = random.nextInt(maxDurationNoRunning.intValue())+minDurationNoRunning.intValue();
+			statusName = "Iddle";
+			duracion = timeIddle;
 			break;
 		case 3:
-			statusName = "Iddle";
-			duracion = random.nextInt(maxDurationNoRunning.intValue())+minDurationNoRunning.intValue();
-			break;
-		case 4:
 			statusName = "Machine Off";
-			duracion = random.nextInt(maxDurationNoRunning.intValue())+minDurationNoRunning.intValue();
+			duracion = timeMachineOff;
 			break;
 		default:
 			statusName = "Running";
-			duracion = random.nextInt(maxDuration.intValue())+minDuration.intValue();
+			duracion = timeRunning;
 			break;
 		}
 
@@ -73,6 +120,26 @@ public class StatusFactory {
 		
 		status = new StatusThing(timeIni, timeFin, statusName);
 		return status;
+
+	}
+	
+	private Double getPorcParticipacion(int min, int max) {
+		
+		int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
+		Double porcParticipacion = Double.valueOf(randomNum)/100;
+		return  porcParticipacion;
+		
+	}
+	
+	private int radomNoRepetible(int max) {
+
+		int num = ThreadLocalRandom.current().nextInt(max);
+		while (numStatuses.contains(num)) {
+			num = ThreadLocalRandom.current().nextInt(max);
+		}
+		numStatuses.add(num);
+		return num;
+
 
 	}
 
