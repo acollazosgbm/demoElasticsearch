@@ -8,7 +8,7 @@ import org.springframework.data.elasticsearch.annotations.GeoPointField;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Document(indexName = "hunt-r", type = "thingResport")
+@Document(indexName = "hunt-r_demo", type = "thingReport")
 public class ThingReport {
 	
 	@Id

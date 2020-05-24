@@ -24,7 +24,7 @@ public class ExecuteDataLoad {
 
 	private static final Logger log = LoggerFactory.getLogger(ExecuteDataLoad.class);
 
-	private static final int periodDuration = 10;
+	private static final int periodDuration = 100;
 	
 	private int amoutReports =0;
 	private long timeIni = System.currentTimeMillis();
